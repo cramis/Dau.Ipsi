@@ -28,10 +28,51 @@ namespace Ipsi.Controllers
         }
         public async Task<IActionResult> Login()
         {
-            LoginInfo loginInfo = new LoginInfo();
+            // LoginInfo loginInfo = new LoginInfo();
 
-            loginInfo.Id = IpsiDataConfig.UserID;
-            loginInfo.Password = IpsiDataConfig.UserPassword;
+            // loginInfo.Id = IpsiDataConfig.UserID;
+            // loginInfo.Password = IpsiDataConfig.UserPassword;
+
+            // loginInfo.APIKey = IpsiDataConfig.ApiKey;
+            // loginInfo.isEmployeeLogin = true;
+
+            // var result = await this.loginService.Login(loginInfo);
+
+            // CookieOptions option = new CookieOptions();
+
+            // option.Expires = DateTime.Now.AddMinutes(30);
+
+
+            // var data = this.GetPrincipalFromExpiredToken(result.JwtToken);
+
+            // var claimsIdentity = new ClaimsIdentity(
+            // data.Claims,
+            // CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // await HttpContext.SignInAsync(
+            //     CookieAuthenticationDefaults.AuthenticationScheme,
+            //     new ClaimsPrincipal(claimsIdentity));
+
+
+            // if (User.Identity.IsAuthenticated)
+            // {
+            //     Response.Cookies.Append("JwtToken", result.JwtToken, option);
+            //     Response.Cookies.Append("RefreshToken", result.RefreshToken, option);
+            //     Response.Cookies.Append("UserType", result.UserType.ToString(), option);
+            //     Response.Cookies.Append("UserId", result.UserId, option);
+            //     Response.Cookies.Append("UserName", result.UserName, option);
+            // }
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginInfo loginInfo)
+        {
+
+
+            // loginInfo.Id = loginInfo.UserID;
+            // loginInfo.Password = IpsiDataConfig.UserPassword;
 
             loginInfo.APIKey = IpsiDataConfig.ApiKey;
             loginInfo.isEmployeeLogin = true;
@@ -63,28 +104,8 @@ namespace Ipsi.Controllers
                 Response.Cookies.Append("UserName", result.UserName, option);
             }
 
-            return View();
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginInfo loginInfo)
-        {
-            var result = await this.loginService.Login(loginInfo);
-
-            var data = this.GetPrincipalFromExpiredToken(result.JwtToken);
-
-            var claimsIdentity = new ClaimsIdentity(
-            data.Claims,
-            CookieAuthenticationDefaults.AuthenticationScheme);
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity));
-
-
-
-
-            return View();
+            return RedirectToAction("UserInfo");
         }
 
         [Authorize]
@@ -94,11 +115,6 @@ namespace Ipsi.Controllers
             var authenticationType = User.Identity.AuthenticationType;
             var isAuthenticated = User.Identity.IsAuthenticated;
 
-            CookieOptions option = new CookieOptions();
-
-            option.Expires = DateTime.Now.AddMinutes(30);
-
-            Response.Cookies.Append("RefreshToken", "testetset", option);
 
             string RefreshToken = "None";
 
