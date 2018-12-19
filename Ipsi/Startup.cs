@@ -77,7 +77,7 @@ namespace Ipsi
             //     });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie();
+            .AddCookie(options => options.LoginPath = "/Auth/Login");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +96,7 @@ namespace Ipsi
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
+
 
 
 

@@ -14,6 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Ipsi.Config;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ipsi.Controllers
 {
@@ -29,10 +30,10 @@ namespace Ipsi.Controllers
         {
             LoginInfo loginInfo = new LoginInfo();
 
-            loginInfo.Id = IpsiApiConfig.UserID;
-            loginInfo.Password = IpsiApiConfig.UserPassword;
+            loginInfo.Id = IpsiDataConfig.UserID;
+            loginInfo.Password = IpsiDataConfig.UserPassword;
 
-            loginInfo.APIKey = IpsiApiConfig.ApiKey;
+            loginInfo.APIKey = IpsiDataConfig.ApiKey;
             loginInfo.isEmployeeLogin = true;
 
             var result = await this.loginService.Login(loginInfo);
@@ -86,6 +87,7 @@ namespace Ipsi.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult UserInfo()
         {
             var Name = User.Identity.Name;
@@ -142,7 +144,7 @@ namespace Ipsi.Controllers
                 ValidateAudience = false, //you might want to validate the audience and issuer depending on your use case
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IpsiApiConfig.JwtKey)),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IpsiDataConfig.JwtKey)),
                 ValidateLifetime = true //here we are saying that we don't care about the token's expiration date
             };
 
