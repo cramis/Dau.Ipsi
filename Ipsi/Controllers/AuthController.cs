@@ -58,9 +58,20 @@ namespace Ipsi.Controllers
             data.Claims,
             CookieAuthenticationDefaults.AuthenticationScheme);
 
+            // await HttpContext.SignInAsync(
+            //     CookieAuthenticationDefaults.AuthenticationScheme,
+            //     new ClaimsPrincipal(claimsIdentity));
+
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity));
+                new ClaimsPrincipal(claimsIdentity),
+                new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(1)
+                });
+
+
 
 
             if (result.UserId != null)
