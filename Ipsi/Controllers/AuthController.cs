@@ -26,42 +26,8 @@ namespace Ipsi.Controllers
         {
             loginService = new LoginService();
         }
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            // LoginInfo loginInfo = new LoginInfo();
-
-            // loginInfo.Id = IpsiDataConfig.UserID;
-            // loginInfo.Password = IpsiDataConfig.UserPassword;
-
-            // loginInfo.APIKey = IpsiDataConfig.ApiKey;
-            // loginInfo.isEmployeeLogin = true;
-
-            // var result = await this.loginService.Login(loginInfo);
-
-            // CookieOptions option = new CookieOptions();
-
-            // option.Expires = DateTime.Now.AddMinutes(30);
-
-
-            // var data = this.GetPrincipalFromExpiredToken(result.JwtToken);
-
-            // var claimsIdentity = new ClaimsIdentity(
-            // data.Claims,
-            // CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // await HttpContext.SignInAsync(
-            //     CookieAuthenticationDefaults.AuthenticationScheme,
-            //     new ClaimsPrincipal(claimsIdentity));
-
-
-            // if (User.Identity.IsAuthenticated)
-            // {
-            //     Response.Cookies.Append("JwtToken", result.JwtToken, option);
-            //     Response.Cookies.Append("RefreshToken", result.RefreshToken, option);
-            //     Response.Cookies.Append("UserType", result.UserType.ToString(), option);
-            //     Response.Cookies.Append("UserId", result.UserId, option);
-            //     Response.Cookies.Append("UserName", result.UserName, option);
-            // }
 
             return View();
         }
@@ -84,6 +50,8 @@ namespace Ipsi.Controllers
             option.Expires = DateTime.Now.AddMinutes(30);
 
 
+
+
             var data = this.GetPrincipalFromExpiredToken(result.JwtToken);
 
             var claimsIdentity = new ClaimsIdentity(
@@ -95,7 +63,7 @@ namespace Ipsi.Controllers
                 new ClaimsPrincipal(claimsIdentity));
 
 
-            if (User.Identity.IsAuthenticated)
+            if (result.UserId != null)
             {
                 Response.Cookies.Append("JwtToken", result.JwtToken, option);
                 Response.Cookies.Append("RefreshToken", result.RefreshToken, option);
