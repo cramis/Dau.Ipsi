@@ -77,7 +77,21 @@ namespace Ipsi
             //     });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options => options.LoginPath = "/Auth/Login");
+            .AddCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.LoginPath = "/Auth/Login";
+                options.LogoutPath = "/Auth/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.Cookie.Expiration = TimeSpan.FromMinutes(1);
+            }
+
+
+      );
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
