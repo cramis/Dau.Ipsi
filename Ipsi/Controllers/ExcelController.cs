@@ -15,7 +15,7 @@ using NPOI.XSSF.UserModel;
 
 namespace Ipsi.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class ExcelController : Controller
     {
         private IHostingEnvironment _hostingEnvironment;
@@ -69,7 +69,7 @@ namespace Ipsi.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ImportExcel()
+        public IActionResult ImportExcel()
         {
             IFormFile file = Request.Form.Files[0];
             string folderName = "Upload";
@@ -104,7 +104,7 @@ namespace Ipsi.Controllers
                     IRow headerRow = sheet.GetRow(0); //Get Header Row
                     int cellCount = headerRow.LastCellNum;
 
-                    sb.Append("<table class='table'><tr>");
+                    sb.Append("<table id='test'><tr>");
                     for (int j = 0; j < cellCount; j++)
                     {
                         NPOI.SS.UserModel.ICell cell = headerRow.GetCell(j);

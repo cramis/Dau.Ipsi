@@ -80,12 +80,10 @@ namespace Ipsi
             .AddCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
                 options.LoginPath = "/Auth/Login";
                 options.LogoutPath = "/Auth/Logout";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-                options.Cookie.Expiration = TimeSpan.FromMinutes(1);
+                options.AccessDeniedPath = "/Auth/AccessDenied";
             }
 
 

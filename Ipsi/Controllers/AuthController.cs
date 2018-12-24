@@ -28,6 +28,15 @@ namespace Ipsi.Controllers
         }
         public IActionResult Login()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                foreach (var cookieKey in Request.Cookies.Keys)
+                {
+                    Response.Cookies.Delete(cookieKey);
+                }
+            }
+
+
 
             return View();
         }
@@ -47,7 +56,7 @@ namespace Ipsi.Controllers
 
             CookieOptions option = new CookieOptions();
 
-            option.Expires = DateTime.Now.AddMinutes(30);
+            option.Expires = DateTime.Now.AddDays(1);
 
 
 
@@ -68,7 +77,7 @@ namespace Ipsi.Controllers
                 new AuthenticationProperties
                 {
                     IsPersistent = true,
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(1)
+                    ExpiresUtc = DateTime.UtcNow.AddHours(1)
                 });
 
 

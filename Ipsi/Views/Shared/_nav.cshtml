@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand mr-auto mr-lg-0" href="#">입시 종합정보</a>
+  <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a asp-area="" asp-controller="Auth" asp-action="UserInfo" class="nav-link">UserInfo</a>
+      </li>
+      <li class="nav-item">
+        <a asp-area="" asp-controller="Excel" asp-action="Export" class="nav-link">Excel Export</a>
+      </li>
+      <li class="nav-item">
+        <a asp-area="" asp-controller="Excel" asp-action="Import" class="nav-link">Excel Import</a>
+      </li>
+    </ul>
+    <div><a asp-area="" asp-controller="Auth" asp-action="Logout" class="btn btn-outline-primary my-2 my-sm-0" >로그아웃</a></div>>
+  </div>
+</nav>
+
+
+<script>
+  $( document ).ready(function() {
+    $('[data-toggle="offcanvas"]').on('click', function () {
+      $('.offcanvas-collapse').toggleClass('open')
+    });
+  });
+  
+</script>
