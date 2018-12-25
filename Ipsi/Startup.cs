@@ -91,7 +91,6 @@ namespace Ipsi
 
 
             services.AddScoped<IUserService, UserService>();
-
             services.AddScoped<IDapperRepository>(sp => new OracleRepository(new ConnectionFactory().Connection("sha")));
 
 
